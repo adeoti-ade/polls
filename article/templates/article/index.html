@@ -1,0 +1,15 @@
+{% if latest_questions %}
+
+<ul>
+    {% for question in latest_questions %}
+        <li>
+            <a href="{% url 'article:detail' question.id %}">
+                {{ question.question_text }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+    No question available
+{% endif %}
