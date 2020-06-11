@@ -3,6 +3,7 @@ from .models import Question, Choice
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 
 # def index(request):
@@ -25,13 +26,16 @@ class IndexView(generic.ListView):
     template_name = 'article/index.html'
     context_object_name = 'latest_questions'
 
-    def queryset(self):
-
-        return Question.objects.order_by("-pub_date")[:5]
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())\
+                                .order_by("-pub_date")[:5]
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'article/detail.html'
+
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 class ResultView(generic.DetailView):
     model = Question
