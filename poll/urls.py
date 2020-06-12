@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-app_name = 'article'
+app_name = 'poll'
 
 urlpatterns = [
     path('polls', views.IndexView.as_view(), name='index'),
